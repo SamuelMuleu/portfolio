@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 33% 8%;
+    --foreground: 0 0% 100%;
+    
+    --primary: 225 50% 17%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 160 100% 50%;
+    --secondary-foreground: 0 0% 0%;
+    
+    --accent: 30 95% 53%;
+    --accent-foreground: 0 0% 100%;
+    
+    --border: 240 28% 14%;
+    --input: 240 28% 14%;
+    --ring: 240 28% 14%;
+    
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-[var(--foreground)] font-sans;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold mb-8 text-white relative;
+  }
+  
+  .section-title::after {
+    content: "";
+    @apply absolute left-0 -bottom-2 w-16 h-1 bg-secondary;
+  }
+}
+
+.timeline-container {
+  @apply relative;
+}
+
+.timeline-container::after {
+  content: '';
+  @apply absolute left-[21px] md:left-1/2 -ml-px w-0.5 h-full bg-secondary top-0;
+}
+
+.experience-item {
+  @apply relative z-10;
+}
+
+.experience-item::before {
+  content: '';
+  @apply absolute left-0 md:left-1/2 -ml-2.5 w-5 h-5 rounded-full bg-secondary;
+}
+
+.experience-content {
+  @apply ml-12 md:ml-0 md:w-5/12 bg-border p-6 rounded-lg shadow-md;
+}
+
+.experience-item:nth-child(even) .experience-content {
+  @apply md:ml-auto md:-translate-x-8;
+}
+
+.experience-item:nth-child(odd) .experience-content {
+  @apply md:mr-auto md:translate-x-8;
+}
