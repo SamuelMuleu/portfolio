@@ -4,7 +4,7 @@ import { BadgeCheck } from 'lucide-react';
 const experiences = [
   {
     company: "Data Campos Sistemas",
-    role: "Desenvolvedor FullStack",
+    role: " Estagiario Desenvolvedor FullStack",
     period: "2025 - atualmente",
     description: "Início da carreira profissional com foco em aprendizado e desenvolvimento de habilidades técnicas. Colaboração em projetos de front-end e back-end básicos.",
     achievements: [
