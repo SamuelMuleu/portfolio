@@ -3,9 +3,22 @@ import { BadgeCheck } from 'lucide-react';
 
 const experiences = [
   {
+    company: "Grupo Barcelos",
+    role: "Analista de Sistemas",
+    period: "08/25 - atualmente",
+    description: "Responsável pela sustentação e otimização do ERP Consinco (TOTVS) com foco estratégico em WMS e logística. Atuação técnica avançada em banco de dados Oracle e desenvolvimento de soluções customizadas para automação de processos no Centro de Distribuição (CD).",
+    achievements: [
+      "Desenvolvimento de queries e views complexas em PL/SQL para auditoria de dados, correção de inconsistências e geração de relatórios operacionais direto no banco.",
+      "Criação e implementação de um aplicativo Android nativo para gestão de APKs, simplificando a atualização dos aplicativos usados nos coletores de dados.",
+      "Manutenção e otimização de serviço em Node.js para automação de disparos de Notas Fiscais via e-mail, garantindo agilidade no fluxo documental.",
+      "Suporte especializado em rotinas de WMS, atuando na resolução de problemas de endereçamento de paletes, conferência de carga  e fluxo de entrada/saída de mercadorias."
+
+    ]
+  },
+  {
     company: "Data Campos Sistemas",
     role: " Desenvolvedor FullStack",
-    period: "05/25 - atualmente",
+    period: "05/25 - 08/25",
     description: "Início da carreira profissional com foco em aprendizado e desenvolvimento de habilidades técnicas. Colaboração em projetos de front-end e back-end básicos.",
     achievements: [
       "Aprendi frameworks modernos como React, Next.js,laravel e Node.js",
@@ -13,6 +26,7 @@ const experiences = [
       "Implementei recursos de UX/UI que melhoraram a interação do usuário"
     ]
   }
+
 ];
 
 export function Experience() {
