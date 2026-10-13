@@ -9,7 +9,7 @@ const experiences = [
     description: "Responsável pela sustentação e otimização do ERP Consinco (TOTVS) com foco estratégico em WMS e logística. Atuação técnica avançada em banco de dados Oracle e desenvolvimento de soluções customizadas para automação de processos no Centro de Distribuição (CD).",
     achievements: [
       "Desenvolvimento de queries e views complexas em PL/SQL para auditoria de dados, correção de inconsistências e geração de relatórios operacionais direto no banco.",
-      "Criação e implementação de um aplicativo Android nativo para gestão de APKs, simplificando a atualização dos aplicativos usados nos coletores de dados.",
+      "Criação da Central de Aplicativos: app Android nativo (Kotlin + Jetpack Compose) que instala e atualiza os aplicativos dos coletores de dados sem depender da Play Store.",
       "Manutenção e otimização de serviço em Node.js para automação de disparos de Notas Fiscais via e-mail, garantindo agilidade no fluxo documental.",
       "Suporte especializado em rotinas de WMS, atuando na resolução de problemas de endereçamento de paletes, conferência de carga  e fluxo de entrada/saída de mercadorias."
 

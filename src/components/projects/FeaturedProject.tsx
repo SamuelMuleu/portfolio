@@ -1,44 +1,54 @@
-import React from 'react';
+import { useRef } from 'react';
+import Autoplay from "embla-carousel-autoplay";
 import { projects } from "../../data/projects";
 import { ProjectCard } from "./ProjectCard";
-import { motion } from "framer-motion";
 import {
   Carousel,
   CarouselContent,
+  CarouselDots,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
 
+const prefersReducedMotion =
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 export function FeaturedProject() {
+  // O plugin precisa ser a mesma instância entre renders, senão o Embla reinicia
+  const autoplay = useRef(
+    Autoplay({
+      delay: 6000,
+      active: !prefersReducedMotion,
+      stopOnInteraction: false,
+      stopOnMouseEnter: true,
+      stopOnFocusIn: true,
+    })
+  );
+
   return (
-    <div className="overflow-hidden">
-      <Carousel 
-        className="w-full"
-        opts={{
-          align: "start",
-          loop: true,
-        }}
-      >
-        <CarouselContent>
-          {projects.map((project, index) => (
-            <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <ProjectCard {...project} />
-              </motion.div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <div className="flex justify-end gap-2 mt-6 px-4">
-          <CarouselPrevious className="static bg-border/50 text-secondary hover:bg-secondary hover:text-black transform-none mx-0" />
-          <CarouselNext className="static bg-border/50 text-secondary hover:bg-secondary hover:text-black transform-none mx-0" />
+    <Carousel
+      className="w-full"
+      opts={{ align: "start", loop: true }}
+      plugins={[autoplay.current]}
+      aria-label="Outros projetos"
+    >
+      <CarouselContent className="py-2">
+        {projects.map((project) => (
+          <CarouselItem key={project.title} className="md:basis-1/2 lg:basis-1/3">
+            <ProjectCard {...project} />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+
+      <div className="flex items-center justify-between gap-4 mt-6">
+        <CarouselDots />
+        <div className="flex gap-2">
+          <CarouselPrevious className="static translate-y-0 bg-border/50 text-secondary border-secondary/30 hover:bg-secondary hover:text-black" />
+          <CarouselNext className="static translate-y-0 bg-border/50 text-secondary border-secondary/30 hover:bg-secondary hover:text-black" />
         </div>
-      </Carousel>
-    </div>
+      </div>
+    </Carousel>
   );
 }

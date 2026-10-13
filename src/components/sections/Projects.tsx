@@ -1,5 +1,6 @@
-import React from 'react';
 import { FeaturedProject } from "../projects/FeaturedProject";
+import { CaseStudy } from "../projects/CaseStudy";
+import { caseStudies } from "../../data/caseStudies";
 import { motion } from "framer-motion";
 
 export function Projects() {
@@ -15,13 +16,27 @@ export function Projects() {
         >
           <h2 className="section-title">Projetos</h2>
           <p className="text-gray-400 max-w-2xl mt-6">
-            Aqui estão alguns dos projetos que demonstram minha paixão
-            pelo desenvolvimento e minha capacidade de criar soluções
-            funcionais e esteticamente agradáveis.
+            Soluções que já estão em uso no dia a dia de uma operação real,
+            e projetos pessoais onde exploro novas tecnologias.
           </p>
         </motion.div>
-        
-        <FeaturedProject />
+
+        <div className="space-y-10">
+          {caseStudies.map((caseStudy) => (
+            <CaseStudy key={caseStudy.id} {...caseStudy} />
+          ))}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="mt-20"
+        >
+          <h3 className="text-2xl font-bold text-white mb-6">Projetos pessoais</h3>
+          <FeaturedProject />
+        </motion.div>
       </div>
     </section>
   );

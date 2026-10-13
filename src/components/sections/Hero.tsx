@@ -20,15 +20,15 @@ export function Hero() {
             </p>
 
             <div className="flex space-x-4 mt-8">
-              <a href="https://github.com/SamuelMuleu" target="_blank" rel="noopener noreferrer"
+              <a href="https://github.com/SamuelMuleu" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
                 className="p-2 bg-border rounded-full text-white hover:text-secondary transition-colors">
                 <Github size={24} />
               </a>
-              <a href="https://www.linkedin.com/in/samuel-muleu/" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.linkedin.com/in/samuel-muleu/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
                 className="p-2 bg-border rounded-full text-white hover:text-secondary transition-colors">
                 <Linkedin size={24} />
               </a>
-              <a href="mailto:samuelpereiramuleu@gmailcom"
+              <a href="mailto:samuelpereiramuleu@gmail.com" aria-label="E-mail"
                 className="p-2 bg-border rounded-full text-white hover:text-secondary transition-colors">
                 <Mail size={24} />
               </a>
@@ -69,6 +69,7 @@ export function Hero() {
                     <div>    <span className="text-orange-400">'Next'</span>,</div>
                     <div>    <span className="text-orange-400">'Angular'</span>,</div>
                     <div>    <span className="text-orange-400">'Ionic'</span>,</div>
+                    <div>    <span className="text-orange-400">'Kotlin'</span>,</div>
                     <div>    <span className="text-orange-400">'Express'</span>,</div>
                     <div>    <span className="text-orange-400">'Php'</span>,</div>
                     <div>    <span className="text-orange-400">'Laravel'</span></div>

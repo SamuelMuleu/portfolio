@@ -8,6 +8,7 @@ import { useState } from "react";
 type FormValues = {
   name: string;
   email: string;
+  subject: string;
   message: string;
 };
 
@@ -32,7 +33,11 @@ export function Contact() {
         {
           from_name: data.name,
           from_email: data.email,
-          message: data.message,
+          subject: data.subject,
+          // Assunto também no corpo, para não depender do template do EmailJS ter {{subject}}
+          message: `Assunto: ${data.subject}
+
+${data.message}`,
         },
         "hKxZa4VyPSjePL6bz"
       )
@@ -40,6 +45,7 @@ export function Contact() {
         (result) => {
           console.log("E-mail enviado com sucesso:", result.text);
           setFeedbackMessage("Mensagem enviada com sucesso!");
+          form.reset();
         },
         (error) => {
           console.log("Erro ao enviar e-mail:", error.text);
@@ -53,7 +59,7 @@ export function Contact() {
 
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-b from-background to-primary/30">
+    <section id="contact" className="py-20 bg-gradient-to-b from-background to-primary/30 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -129,7 +135,7 @@ export function Contact() {
                     {...register("name", { required: "Nome é obrigatório" })}
                   />
                   {errors.name && (
-                    <div>{errors.name.message}</div>
+                    <p className="mt-1 text-sm text-error">{errors.name.message}</p>
                   )}
                 </div>
                 <div>
@@ -148,7 +154,7 @@ export function Contact() {
                     })}
                   />
                   {errors.email && (
-                    <div>{errors.email.message}</div>
+                    <p className="mt-1 text-sm text-error">{errors.email.message}</p>
                   )}
                 </div>
               </div>
@@ -160,10 +166,11 @@ export function Contact() {
                   id="subject"
                   className="w-full px-4 py-3 bg-border text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
                   placeholder="Assunto da mensagem"
-                  {...register("message", {
-                    required: "Mensagem é obrigatória",
-                  })}
+                  {...register("subject", { required: "Assunto é obrigatório" })}
                 />
+                {errors.subject && (
+                  <p className="mt-1 text-sm text-error">{errors.subject.message}</p>
+                )}
               </div>
 
               <div>
@@ -173,13 +180,14 @@ export function Contact() {
                   rows={5}
                   className="w-full px-4 py-3 bg-border text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary"
                   placeholder="Sua mensagem..."
+                  {...register("message", { required: "Mensagem é obrigatória" })}
                 ></textarea>
                 {errors.message && (
-                  <div>{errors.message.message}</div>
+                  <p className="mt-1 text-sm text-error">{errors.message.message}</p>
                 )}
               </div>
 
-              <Button className="bg-secondary text-black hover:bg-secondary/80 font-medium px-6 py-3 rounded-lg transition-all w-full sm:w-auto">
+              <Button type="submit" disabled={sending} className="bg-secondary text-black hover:bg-secondary/80 font-medium px-6 py-3 rounded-lg transition-all w-full sm:w-auto">
                 {sending ? "Enviando..." : "Enviar"}
               </Button>
               {feedbackMessage && (

@@ -21,8 +21,11 @@ type CarouselContextProps = {
   api: ReturnType<typeof useEmblaCarousel>[1];
   scrollPrev: () => void;
   scrollNext: () => void;
+  scrollTo: (index: number) => void;
   canScrollPrev: boolean;
   canScrollNext: boolean;
+  selectedIndex: number;
+  scrollSnaps: number[];
 } & CarouselProps;
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
@@ -62,6 +65,8 @@ const Carousel = React.forwardRef<
     );
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
+    const [selectedIndex, setSelectedIndex] = React.useState(0);
+    const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([]);
 
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
@@ -70,6 +75,8 @@ const Carousel = React.forwardRef<
 
       setCanScrollPrev(api.canScrollPrev());
       setCanScrollNext(api.canScrollNext());
+      setSelectedIndex(api.selectedScrollSnap());
+      setScrollSnaps(api.scrollSnapList());
     }, []);
 
     const scrollPrev = React.useCallback(() => {
@@ -79,6 +86,13 @@ const Carousel = React.forwardRef<
     const scrollNext = React.useCallback(() => {
       api?.scrollNext();
     }, [api]);
+
+    const scrollTo = React.useCallback(
+      (index: number) => {
+        api?.scrollTo(index);
+      },
+      [api]
+    );
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -125,8 +139,11 @@ const Carousel = React.forwardRef<
           orientation,
           scrollPrev,
           scrollNext,
+          scrollTo,
           canScrollPrev,
           canScrollNext,
+          selectedIndex,
+          scrollSnaps,
         }}
       >
         <div
@@ -212,7 +229,7 @@ const CarouselPrevious = React.forwardRef<
       {...props}
     >
       <ArrowLeft className="h-4 w-4" />
-      <span className="sr-only">Previous slide</span>
+      <span className="sr-only">Anterior</span>
     </Button>
   );
 });
@@ -241,11 +258,39 @@ const CarouselNext = React.forwardRef<
       {...props}
     >
       <ArrowRight className="h-4 w-4" />
-      <span className="sr-only">Next slide</span>
+      <span className="sr-only">Próximo</span>
     </Button>
   );
 });
 CarouselNext.displayName = "CarouselNext";
+
+const CarouselDots = ({ className }: { className?: string }) => {
+  const { scrollSnaps, selectedIndex, scrollTo } = useCarousel();
+
+  if (scrollSnaps.length < 2) {
+    return null;
+  }
+
+  return (
+    <div className={cn("flex items-center gap-2", className)}>
+      {scrollSnaps.map((_, index) => (
+        <button
+          key={index}
+          type="button"
+          onClick={() => scrollTo(index)}
+          aria-label={`Ir para o item ${index + 1}`}
+          aria-current={index === selectedIndex}
+          className={cn(
+            "h-2 rounded-full transition-all duration-300",
+            index === selectedIndex
+              ? "w-6 bg-secondary"
+              : "w-2 bg-gray-600 hover:bg-gray-400"
+          )}
+        />
+      ))}
+    </div>
+  );
+};
 
 export {
   type CarouselApi,
@@ -254,6 +299,6 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselDots,
+  useCarousel,
 };
-
-export default  { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious }
