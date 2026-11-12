@@ -14,62 +14,24 @@ export interface ProjectProps {
   technologies: string[];
   github?: string;
   demo?: string;
-  credentials?: {
-    login: string;
-    senha: string;
-  };
 }
 
 export const projects: ProjectProps[] = [
   {
-    title: "Calculadora de Pesos Para Alianças",
+    title: "Popcorn: guia de filmes e séries",
     description:
-      "Aplicação desenvolvida para otimizar o processo de fundição de alianças. O usuário informa variáveis como circunferência interna, altura e largura, e a aplicação calcula automaticamente a conquila ideal e o peso sugerido para a fundição.",
-    year: "2025",
-    role: "Desenvolvedor Front-end",
-    image: calculatorPc,
-    technologies: ["React", "TypeScript", "Tailwind CSS"],
-    github: "https://github.com/SamuelMuleu/AllianceCalculator",
-    demo: "https://alliance-calculator.vercel.app",
-  },
-  {
-    title: "Site para Visualização Climática",
-    description:
-      "Aplicação web que exibe a previsão do tempo em tempo real, consumindo a API OpenWeatherMap. Permite consultar informações detalhadas sobre o clima em diferentes localidades.",
-    year: "2025",
-    role: "Desenvolvedor Front-end",
-    image: weather,
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Axios"],
-    github: "https://github.com/SamuelMuleu/weather-app",
-    demo: "https://myweathercities.netlify.app",
-  },
-  {
-    title: "Site para favoritar Filmes e Séries",
-    description:
-      "Aplicação web que consome a API The Movie Database (TMDB), com autenticação e lista de favoritos implementadas com Firebase. Front-end em Next.js e TypeScript, estilizado com Tailwind CSS.",
+      "Guia em português com sinopse, elenco, trailer e onde assistir no Brasil, consumindo a API do TMDB. Páginas renderizadas no servidor com SEO, artigos editoriais e listas pessoais (favoritos, assistidos e episódios) com login Google no Firebase.",
     year: "2024",
-    role: "Desenvolvedor Front-end",
+    role: "Desenvolvedor Full-Stack",
     image: popcorn,
     technologies: ["Next.js", "TypeScript", "Firebase", "Tailwind CSS"],
     github: "https://github.com/SamuelMuleu/popcorn",
     demo: "https://popcornview.netlify.app",
   },
   {
-    title: "Site Para Portfólio de uma Joalheria",
+    title: "Coffee Delivery",
     description:
-      "Site feito para uma joalheria apresentar seu portfólio de joias. Feito com React e TypeScript, usando Firebase como back-end.",
-    year: "2024",
-    role: "Desenvolvedor Full-Stack",
-    image: saffir,
-    technologies: ["React", "TypeScript", "Firebase"],
-    github: "https://github.com/SamuelMuleu/portfolioSaffir",
-    demo: "https://portfolio-saffir.vercel.app",
-    credentials: { login: "saffir@joias.com", senha: "190225" },
-  },
-  {
-    title: "Site de Entrega de Café",
-    description:
-      "Aplicação de delivery de café que simula a experiência completa, da seleção do produto à confirmação do pedido. Desenvolvida para aprofundar React, especialmente o gerenciamento de estado com Context API.",
+      "Loja de cafés com catálogo, carrinho e checkout. Carrinho com useReducer e Context API salvo no navegador, formulário validado com react-hook-form e endereço preenchido automaticamente pelo CEP (ViaCEP).",
     year: "2024",
     role: "Desenvolvedor Front-end",
     image: coffeeDelivery,
@@ -78,14 +40,47 @@ export const projects: ProjectProps[] = [
     demo: "https://coffeefastdelivery.netlify.app",
   },
   {
+    title: "Weather: previsão do tempo",
+    description:
+      "Busca de cidades com sugestões e geolocalização, clima atual no fuso da cidade, detalhes do dia e previsão para 5 dias com a API do OpenWeather. Estado global com Redux Toolkit e estados de carregamento e erro.",
+    year: "2025",
+    role: "Desenvolvedor Front-end",
+    image: weather,
+    technologies: ["React", "TypeScript", "Redux Toolkit", "Tailwind CSS"],
+    github: "https://github.com/SamuelMuleu/weather-app",
+    demo: "https://myweathercities.netlify.app",
+  },
+  {
     title: "Lista de Tarefas Full-Stack",
     description:
-      "Aplicativo de lista de tarefas com front-end em React e back-end em Node.js, Express e MongoDB. Permite criar, excluir e concluir tarefas, com os dados persistidos no banco.",
+      "Front-end em React com atualizações otimistas e uma API REST própria em Node.js, Express e MongoDB, com validação, códigos HTTP corretos e testes de integração. API em github.com/SamuelMuleu/to-do-api.",
     year: "2024",
     role: "Desenvolvedor Full-Stack",
     image: todo,
     technologies: ["React", "Node.js", "Express", "MongoDB"],
     github: "https://github.com/SamuelMuleu/toDo",
     demo: "https://organizelist.netlify.app",
+  },
+  {
+    title: "Catálogo de uma Joalheria",
+    description:
+      "Catálogo de joias com filtros por categoria, promoções e painel administrativo protegido por login para cadastrar, editar e remover peças. Dados e autenticação no Firebase.",
+    year: "2024",
+    role: "Desenvolvedor Full-Stack",
+    image: saffir,
+    technologies: ["React", "TypeScript", "Chakra UI", "Firebase"],
+    github: "https://github.com/SamuelMuleu/portfolioSaffir",
+    demo: "https://portfolio-saffir.vercel.app",
+  },
+  {
+    title: "Calculadora de Pesos para Alianças",
+    description:
+      "Ferramenta usada na fundição de alianças: a partir da numeração, altura e largura, calcula a conquilha ideal e o peso de ouro necessário.",
+    year: "2025",
+    role: "Desenvolvedor Front-end",
+    image: calculatorPc,
+    technologies: ["React", "TypeScript", "Tailwind CSS"],
+    github: "https://github.com/SamuelMuleu/AllianceCalculator",
+    demo: "https://alliance-calculator.vercel.app",
   },
 ];

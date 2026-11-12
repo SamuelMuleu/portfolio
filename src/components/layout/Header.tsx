@@ -73,7 +73,9 @@ export function Header() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:text-secondary transition-colors"
+              aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+              aria-expanded={isOpen}
+              className="p-2 -mr-2 text-white hover:text-secondary transition-colors"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

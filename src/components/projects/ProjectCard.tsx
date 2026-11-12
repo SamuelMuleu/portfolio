@@ -11,7 +11,6 @@ export function ProjectCard({
   technologies,
   github,
   demo,
-  credentials,
 }: ProjectProps) {
   return (
     <article className="h-full flex flex-col bg-border rounded-xl overflow-hidden shadow-lg transition-shadow duration-300 hover:shadow-xl hover:shadow-secondary/10 group">
@@ -19,6 +18,8 @@ export function ProjectCard({
         <img
           src={image}
           alt={`Tela do projeto ${title}`}
+          width={1280}
+          height={720}
           loading="lazy"
           draggable={false}
           className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
@@ -41,18 +42,10 @@ export function ProjectCard({
           ))}
         </div>
 
-        {credentials && (
-          <div className="mb-4 p-3 bg-primary/50 rounded-lg">
-            <p className="text-xs text-gray-400 mb-1">Credenciais de teste:</p>
-            <p className="text-xs text-gray-300">Login: <span className="text-secondary">{credentials.login}</span></p>
-            <p className="text-xs text-gray-300">Senha: <span className="text-secondary">{credentials.senha}</span></p>
-          </div>
-        )}
-
         <div className="flex gap-3 mt-auto pt-2">
           {github && (
             <Button asChild variant="outline" className="flex-1 bg-transparent text-white border-secondary/50 hover:bg-secondary hover:text-black gap-2">
-              <a href={github} target="_blank" rel="noopener noreferrer">
+              <a href={github} target="_blank" rel="noopener noreferrer" aria-label={`Código de ${title} no GitHub`}>
                 <Github size={16} />
                 <span>GitHub</span>
               </a>
@@ -60,7 +53,7 @@ export function ProjectCard({
           )}
           {demo && (
             <Button asChild className="flex-1 bg-secondary text-black hover:bg-secondary/80 gap-2">
-              <a href={demo} target="_blank" rel="noopener noreferrer">
+              <a href={demo} target="_blank" rel="noopener noreferrer" aria-label={`Abrir demo de ${title}`}>
                 <ExternalLink size={16} />
                 <span>Demo</span>
               </a>
