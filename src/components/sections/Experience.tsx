@@ -1,33 +1,68 @@
 import { motion } from 'framer-motion';
-import { BadgeCheck } from 'lucide-react';
+import { BadgeCheck, MapPin } from 'lucide-react';
 
+// Conteúdo idêntico à seção Experiência do LinkedIn (linkedin.com/in/samuel-muleu)
 const experiences = [
   {
-    company: "Grupo Barcelos",
+    company: "Barcelos",
     role: "Analista de Sistemas",
-    period: "08/25 - atualmente",
-    description: "Responsável pela sustentação e otimização do ERP Consinco (TOTVS) com foco estratégico em WMS e logística. Atuação técnica avançada em banco de dados Oracle e desenvolvimento de soluções customizadas para automação de processos no Centro de Distribuição (CD).",
+    type: "Tempo integral",
+    start: "2025-08",
+    end: null,
+    location: "Campos dos Goytacazes, Rio de Janeiro, Brasil · Presencial",
+    description:
+      "Analista de Sistemas no Grupo Barcelos (varejo supermercadista), responsável pela sustentação do ERP TOTVS Consinco e pelo desenvolvimento de soluções internas que integram o banco Oracle, as lojas e a gestão.",
     achievements: [
-      "Desenvolvimento de queries e views complexas em PL/SQL para auditoria de dados, correção de inconsistências e geração de relatórios operacionais direto no banco.",
-      "Criação da Central de Aplicativos: app Android nativo (Kotlin + Jetpack Compose) que instala e atualiza os aplicativos dos coletores de dados sem depender da Play Store.",
-      "Manutenção e otimização de serviço em Node.js para automação de disparos de Notas Fiscais via e-mail, garantindo agilidade no fluxo documental.",
-      "Suporte especializado em rotinas de WMS, atuando na resolução de problemas de endereçamento de paletes, conferência de carga  e fluxo de entrada/saída de mercadorias."
-
-    ]
+      "Desenvolvi a Central de Aplicativos, app Android que instala e atualiza automaticamente os apps dos coletores de dados das lojas a partir de um servidor interno",
+      "Desenvolvo consultas, procedures e relatórios em Oracle PL/SQL para extrair dados do ERP e apoiar decisões da gestão",
+      "Criei e implantei aplicações web internas em Node.js/Express integradas ao Oracle, publicadas em servidor próprio com PM2 e nginx",
+      "Automatizei rotinas de integração e envio de dados com Node.js e N8N, eliminando trabalho manual",
+      "Atendo usuários, levanto requisitos, faço homologação e cuido do relacionamento com o suporte do sistema",
+    ],
   },
   {
     company: "Data Campos Sistemas",
-    role: " Desenvolvedor FullStack",
-    period: "05/25 - 08/25",
-    description: "Início da carreira profissional com foco em aprendizado e desenvolvimento de habilidades técnicas. Colaboração em projetos de front-end e back-end básicos.",
+    role: "Desenvolvedor Fullstack Trainee",
+    type: "Tempo integral",
+    start: "2025-05",
+    end: "2025-08",
+    location: "Campos dos Goytacazes, Rio de Janeiro, Brasil · Presencial",
+    description:
+      "Desenvolvimento e manutenção de aplicações web e mobile para clientes da software house, no ecossistema Angular, Ionic e Laravel (PHP).",
     achievements: [
-      "Aprendi frameworks modernos como React, Next.js,laravel e Node.js",
-      "Participei no desenvolvimento de projetos completos e colaborei em ajustes de bugs",
-      "Implementei recursos de UX/UI que melhoraram a interação do usuário"
-    ]
-  }
-
+      "Implementei novas funcionalidades em aplicações web (Angular) e mobile (Ionic)",
+      "Desenvolvi e mantive endpoints e regras de negócio no back-end em Laravel",
+      "Integrei aplicações com APIs REST",
+      "Corrigi bugs e trabalhei com versionamento em Git em equipe ágil",
+    ],
+  },
 ];
+
+const MONTHS = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"];
+
+function parse(ym: string) {
+  const [y, m] = ym.split("-").map(Number);
+  return { y, m };
+}
+
+const formatMonth = (ym: string) => {
+  const { y, m } = parse(ym);
+  return `${MONTHS[m - 1]} de ${y}`;
+};
+
+/** Same rule as LinkedIn: counts both the start and the end month. */
+function duration(start: string, end: string | null) {
+  const s = parse(start);
+  const now = new Date();
+  const e = end ? parse(end) : { y: now.getFullYear(), m: now.getMonth() + 1 };
+  const total = (e.y - s.y) * 12 + (e.m - s.m) + 1;
+  const years = Math.floor(total / 12);
+  const months = total % 12;
+  const parts = [];
+  if (years) parts.push(`${years} ${years === 1 ? "ano" : "anos"}`);
+  if (months) parts.push(`${months} ${months === 1 ? "mês" : "meses"}`);
+  return parts.join(" e ");
+}
 
 export function Experience() {
   return (
@@ -41,11 +76,6 @@ export function Experience() {
           className="mb-12"
         >
           <h2 className="section-title">Experiência Profissional</h2>
-          <p className="text-gray-400 max-w-2xl mt-6">
-            Minha trajetória profissional inclui experiências que me permitiram
-            desenvolver habilidades técnicas e soft skills essenciais para entregar
-            projetos de qualidade.
-          </p>
         </motion.div>
 
         <div className="timeline-container mt-16 pb-10">
@@ -58,25 +88,37 @@ export function Experience() {
               viewport={{ once: true, margin: "-100px" }}
               className="experience-item pb-16"
             >
-              <div className={`experience-content ${index % 2 === 0 ? 'md:mr-auto md:text-right' : 'md:ml-auto'}`}>
-                <h3 className="text-xl font-bold text-white">{exp.company}</h3>
-                <div className="flex items-center mb-2 justify-start md:justify-end">
-                  <span className="text-secondary font-medium">{exp.role}</span>
+              <article className="experience-content">
+                <div className="flex flex-wrap items-start justify-between gap-2">
+                  <h3 className="text-xl font-bold text-white">{exp.role}</h3>
+                  {!exp.end && (
+                    <span className="rounded-full border border-success/40 px-2.5 py-0.5 text-xs font-medium text-success">
+                      Atual
+                    </span>
+                  )}
                 </div>
-                <div className="text-sm text-gray-400 mb-4 md:justify-end">{exp.period}</div>
-                <p className="text-gray-300 mb-4">{exp.description}</p>
-                <div className={`space-y-2 ${index % 2 === 0 ? 'md:items-end' : ''}`}>
-                  {exp.achievements.map((achievement, i) => (
-                    <div
-                      key={i}
-                      className={`flex items-start gap-2 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
-                    >
-                      <BadgeCheck className="flex-shrink-0 text-secondary mt-0.5" size={18} />
-                      <p className="text-sm text-gray-400">{achievement}</p>
-                    </div>
+                <p className="text-secondary font-medium mt-1">
+                  {exp.company} · {exp.type}
+                </p>
+                <p className="text-sm text-gray-400 mt-1">
+                  {formatMonth(exp.start)} - {exp.end ? formatMonth(exp.end) : "o momento"} · {duration(exp.start, exp.end)}
+                </p>
+                <p className="flex items-center gap-1.5 text-sm text-gray-500 mt-1">
+                  <MapPin size={14} className="shrink-0" aria-hidden />
+                  {exp.location}
+                </p>
+
+                <p className="text-gray-300 mt-4">{exp.description}</p>
+
+                <ul className="space-y-2 mt-4">
+                  {exp.achievements.map((achievement) => (
+                    <li key={achievement} className="flex items-start gap-2">
+                      <BadgeCheck className="flex-shrink-0 text-secondary mt-0.5" size={18} aria-hidden />
+                      <span className="text-sm text-gray-400">{achievement}</span>
+                    </li>
                   ))}
-                </div>
-              </div>
+                </ul>
+              </article>
             </motion.div>
           ))}
         </div>
