@@ -26,6 +26,7 @@ export function Contact() {
 
   const sendEmail: SubmitHandler<FormValues> = (data) => {
     setSending(true);
+    setFeedbackMessage("");
     emailjs
       .send(
         "service_9xrj56b",
@@ -190,9 +191,9 @@ ${data.message}`,
               <Button type="submit" disabled={sending} className="bg-secondary text-black hover:bg-secondary/80 font-medium px-6 py-3 rounded-lg transition-all w-full sm:w-auto">
                 {sending ? "Enviando..." : "Enviar"}
               </Button>
-              {feedbackMessage && (
-                <div className="mt-4 text-white">{feedbackMessage}</div>
-              )}
+              <p role="status" aria-live="polite" className="mt-4 text-white min-h-[1.5rem]">
+                {feedbackMessage}
+              </p>
             </form>
           </motion.div>
         </div>

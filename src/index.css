@@ -29,8 +29,24 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   body {
     @apply bg-background text-[var(--foreground)] font-sans;
+  }
+
+  /* Keeps section titles visible below the fixed header when using the nav links */
+  section[id],
+  article[id] {
+    scroll-margin-top: 5rem;
   }
 }
 
